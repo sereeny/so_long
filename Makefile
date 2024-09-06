@@ -5,19 +5,17 @@ NAME				= so_long
 LIBFT_DIR			= ./libft
 LIBFT_LIB			= $(LIBFT_DIR)/libft.a
 INC					= inc/
-SRC_DIR				= srcs/
+SRC_DIR				= src/
 OBJ_DIR				= obj/
 
 # Compiler and CFlags
 CC					= gcc
-CFLAGS				= -g -Wall -Werror -Wextra -I$(INC) -I$(LIBFT_DIR)/inc
+CFLAGS				= -g -Wall -Werror -Wextra
 RM					= rm -f
 
 # Source Files
-COMMANDS_DIR		=	
-
-# Concatenate all source files
-SRCS 				= $(COMMANDS_DIR) $(SO_LONG_DIR)
+SRCS 				= 	$(SRC)so_long.c \
+						$(SRC)parse.c 
 
 # Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
 OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
