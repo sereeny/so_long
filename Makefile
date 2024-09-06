@@ -11,7 +11,9 @@ OBJ_DIR				= obj/
 # Compiler and CFlags
 CC					= gcc
 CFLAGS				= -g -Wall -Werror -Wextra
+MLX_FLAGS			= -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 RM					= rm -f
+INCLUDES			= -I/usr/include -Imlx
 
 # Source Files
 SRCS 				= 	$(SRC)so_long.c \
@@ -24,9 +26,13 @@ OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 all: 				$(NAME)
 
 $(NAME): 			$(OBJ) $(LIBFT_LIB)
-					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME)
+					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME) $(MLX_FLAGS) $(INCLUDES)
 
-# Compile object files from source files
+# Compile object files from source files (general pattern)
+.c.o:
+					@mkdir -p $(OBJ_DIR)
+					@$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$*.o $(INCLUDES)
+
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c 
 					@mkdir -p $(@D)
 					@$(CC) $(CFLAGS) -c $< -o $@
