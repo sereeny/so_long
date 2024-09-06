@@ -4,6 +4,8 @@ NAME				= so_long
 # Directories
 LIBFT_DIR			= ./libft
 LIBFT_LIB			= $(LIBFT_DIR)/libft.a
+MLX_DIR				= ./mlx
+MLX_LIB				= $(MLX_DIR)/
 INC					= inc/
 SRC_DIR				= src/
 OBJ_DIR				= obj/
@@ -23,7 +25,7 @@ SRCS 				= 	$(SRC)so_long.c \
 OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 # Build rules
-all: 				$(NAME)
+all: 				$(MLX_LIB) $(NAME)
 
 $(NAME): 			$(OBJ) $(LIBFT_LIB)
 					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME) $(MLX_FLAGS) $(INCLUDES)
