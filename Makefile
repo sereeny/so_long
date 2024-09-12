@@ -1,56 +1,53 @@
-# Standard
-NAME				= so_long
+NAME = so_long
+LIBFT_PATH = libft
+LIBMLX = MLX42
+SRC = src/so_long.c #src/parser.c src/utils.c
+#SRC_BONUS =
+SRC_O = $(SRC:.c=.o)
+BONUS_O = $(SRC_BONUS:.c=.o)
+FLAGS = -Wall -Wextra -Werror -g
 
-# Directories
-LIBFT_DIR			= ./libft
-LIBFT_LIB			= $(LIBFT_DIR)/libft.a
-MLX_DIR				= ./mlx
-MLX_LIB				= $(MLX_DIR)/
-INC					= inc/
-SRC_DIR				= src/
-OBJ_DIR				= obj/
+all: $(NAME)
 
-# Compiler and CFlags
-CC					= gcc
-CFLAGS				= -g -Wall -Werror -Wextra
-MLX_FLAGS			= -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-RM					= rm -f
-INCLUDES			= -I/usr/include -Imlx
+bonus: $(BONUS_O) $(LIBFT_PATH)/libft.a $(LIBMLX)/libmlx42.a
+	gcc -o $(NAME) $^ -L$(LIBFT_PATH) -ldl -lglfw -I include -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
+	@echo
+	@echo 125% - BONUS
+	@echo
 
-# Source Files
-SRCS 				= 	$(SRC)so_long.c \
-						$(SRC)parse.c 
+$(NAME): $(SRC_O) $(LIBFT_PATH)/libft.a $(LIBMLX)/libmlx42.a
+	gcc -o $@ $^ -L$(LIBFT_PATH) -ldl -lglfw -I include -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
+	@echo
+	@echo 100%
+	@echo
 
-# Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
-OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
+$(LIBFT_PATH)/libft.a:
+	$(MAKE) -C $(LIBFT_PATH) all extra crom old
+	@echo
+	@echo 80%
+	@echo
 
-# Build rules
-all: 				$(MLX_LIB) $(NAME)
+$(LIBMLX)/libmlx42.a:
+	$(MAKE) -C MLX42 all
 
-$(NAME): 			$(OBJ) $(LIBFT_LIB)
-					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME) $(MLX_FLAGS) $(INCLUDES)
+src/%.o : src/%.c
+	gcc $(FLAGS) -c $< -o $@
 
-# Compile object files from source files (general pattern)
-.c.o:
-					@mkdir -p $(OBJ_DIR)
-					@$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$*.o $(INCLUDES)
-
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c 
-					@mkdir -p $(@D)
-					@$(CC) $(CFLAGS) -c $< -o $@
-
-$(LIBFT_LIB):
-					@make -C $(LIBFT_DIR)
+src_bonus/%.o : src_bonus/%.c
+	gcc $(FLAGS) -c $< -o $@
 
 clean:
-					@$(RM) -r $(OBJ_DIR)
-					@make clean -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	rm -f $(SRC_O)
+	rm -rf $(BONUS_O)
 
-fclean: 			clean
-					@$(RM) $(NAME)
-					@make fclean -C $(LIBFT_DIR)
+fclean:
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	$(MAKE) -C MLX42 fclean
+	rm -f $(SRC_O)
+	rm -rf $(BONUS_O)
+	rm -f $(NAME)
 
-re: 				fclean all
+re: fclean all
 
-# Phony targets represent actions not files
-.PHONY: 			all clean fclean re
+.PHONY: all clean fclean re

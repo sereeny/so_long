@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssandova <ssandova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 12:11:40 by ssandova          #+#    #+#             */
-/*   Updated: 2024/07/19 11:47:27 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:18:13 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*s trlcat() appends string src to the end of dst.  It will append at most
+/*strlcat() appends string src to the end of dst.  It will append at most
 dstsize - strlen(dst) - 1 characters.  It will then NUL-terminate, unless 
 dstsize is 0 or the original dst string was longer than dstsize (in practice 
 this should not happen as it means that either dstsize is incorrect or that dst
