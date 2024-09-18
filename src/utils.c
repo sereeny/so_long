@@ -6,11 +6,12 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/12 16:45:52 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:53:10 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
 
 int ft_strlen_sl(char *str)
 {
@@ -35,5 +36,5 @@ static void	error_print(int type)
 	if (type == 0)
 		ft_printf("Use: ./so_long [map.ber]\n");
 	else if (type == 1)
-		ft_printf("No map file\n");
+		ft_printf("No map file.\n");
 }

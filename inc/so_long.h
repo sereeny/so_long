@@ -7,16 +7,17 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-//struct
-typedef struct s_game
-{
-	void	*window;
-	void	*context;
-	int32_t	width;
-	int32_t	height;
-	double	delta_time;
-}	t_game;
+//structs
 
+typedef struct s_map
+{
+	char	**map;
+	int		exit;
+	int		collectibles;
+	int		player;
+	int 	player_x;
+	int 	player_y;
+}	t_map;
 
 int		main(int argc, char **argv);
 
