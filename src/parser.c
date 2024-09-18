@@ -6,15 +6,21 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/18 20:18:56 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:25:41 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-bool	parse_map(char *file)
+void	file_to_array(char *file, t_map *map)
 {
-	
+	int		fd;
+	char	*line;
+	int		i;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return(error_sl(map, 1), 1);
 }
 
 int		rectangle(char **map)
@@ -44,4 +50,9 @@ int		rectangle(char **map)
 			return (1);
 	}
 	return (0);
+}
+
+int	parse_map(char *file, t_map *map)
+{
+	file_to_array(file, map);
 }

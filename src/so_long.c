@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/18 20:19:04 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:20:33 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	main(int argc, char **argv)
 	map = (t_map *)calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	
+	if (!parse_map(argv[1], &map))
+		return (1);
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4) != 0)
 		return (1);
 
