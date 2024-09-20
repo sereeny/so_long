@@ -9,7 +9,7 @@
 
 //structs
 
-typedef struct s_map
+typedef	struct s_map
 {
 	char	**map;
 	int		exit;
@@ -22,6 +22,7 @@ typedef struct s_map
 int		main(int argc, char **argv);
 
 // parsing
+int		parse_map(char *file, t_map *map);
 
 //bool	parse_map(char *file);
 //void	error_type(t_game game, int type);

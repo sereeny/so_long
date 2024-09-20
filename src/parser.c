@@ -6,24 +6,39 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/18 20:25:41 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:01:52 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	file_to_array(char *file, t_map *map)
+static int	file_to_array(char *file, t_map **map)
 {
-	int		fd;
 	char	*line;
+	char 	*tmp;
+	int		fd;
 	int		i;
+	int		j;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return(error_sl(map, 1), 1);
+	line = get_next_line(fd);
+	if (!line)
+		return (error_sl(map, 1), 1);
+	tmp = (char *)malloc(sizeof(char) * 1);
+	while (line)
+	{
+		tmp = ft_strjoin(tmp, line);
+		if (!tmp)
+			return (error_sl(map, 1), 1);
+		line = get_next_line(fd);
+	}
+	(*map)->map = ft_split(tmp, '\n');
+	return (close(fd), 0);
 }
 
-int		rectangle(char **map)
+static int		rectangle(char **map)
 {
 	int len;
 	int i;
@@ -52,7 +67,9 @@ int		rectangle(char **map)
 	return (0);
 }
 
-int	parse_map(char *file, t_map *map)
+int	parse_map(char *file, t_map **map)
 {
-	file_to_array(file, map);
+	if (!file_to_array(file, map) || !rectangle((*map)->map))
+		return (error_sl(map, 2), 1);
+	return (0);
 }

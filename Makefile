@@ -1,7 +1,7 @@
 NAME = so_long
 LIBFT_PATH = libft
 LIBMLX = MLX42
-SRC = src/so_long.c #src/parser.c src/utils.c
+SRC = src/so_long.c src/parser.c #src/utils.c
 #SRC_BONUS =
 SRC_O = $(SRC:.c=.o)
 BONUS_O = $(SRC_BONUS:.c=.o)
