@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/20 17:45:44 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:36:52 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 int	main(int argc, char **argv)
 {
+	int i = 0;
 	t_map	*map;
 
 	if ((argc == 1)|| (!argv[1][0]))
-		return (1);
+		return (error_sl(NULL, 0) ,1);
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	if (!parse_map(argv[1], &map))
+	if (parse_map(argv[1], map))
+	{
+		while (map->map[i] != NULL) 
+		{
+        	printf("%s\n", map->map[i]);
+        	i++;
+		}
 		return (1);
-	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4) != 0)
-		return (1);
-
-//	char **map = parse_map(argv[1]);
-/*	mlx_t	*mlx;
-	mlx = mlx_init(256, 256, "42", true);
-	if (!mlx)
-		return (1);
-	// mlx_loop(mlx);*/
+	}
+//	mlx_t	*mlx;
+//	mlx = mlx_init(256, 256, "42", true);
+//	if (!mlx)
+//		return (1);
+//	mlx_loop(mlx);
 }

@@ -6,11 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:35:33 by ssandova          #+#    #+#             */
-/*   Updated: 2024/08/12 13:23:00 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:49:01 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "libft.h"
 
 /*---------------------------------------------------------------------------
 Main GNL function. 
@@ -47,13 +47,13 @@ char	*read_from_file(char *static_buffer, int fd)
 	while (bytes_read > 0 && !ft_strchr_gnl(static_buffer, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < -1)
+		if (bytes_read < 0)
 			return (free(buffer), free(static_buffer), NULL);
 		buffer[bytes_read] = '\0';
 		if (static_buffer == NULL)
 			static_buffer = ft_calloc_gnl(1, 1);
 		static_buffer = ft_strjoin_gnl(static_buffer, buffer);
-		if (static_buffer[0] != '\0')
+		if (!*static_buffer)
 			return (free(static_buffer), free(buffer), buffer = NULL, NULL);
 	}
 	return (free(buffer), static_buffer);

@@ -6,11 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:35:22 by ssandova          #+#    #+#             */
-/*   Updated: 2024/08/12 13:22:56 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:49:50 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "libft.h"
 
 /*-----------------------------------------------------------------------------
 The calloc() function contiguously allocates enough space for count objects 
