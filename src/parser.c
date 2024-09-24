@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/24 19:33:45 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:43:48 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	parse_map(char *file, t_map *map)
 {
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".ber", 4) != 0)
 		return (error_sl(map, 1), 1);
-	if (!file_to_array(file, map) || !rectangle((map)))
+	if (file_to_array(file, map) || rectangle((map)))
 		return (error_sl(map, 2), 1);
 	return (0);
 }

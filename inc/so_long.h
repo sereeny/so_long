@@ -9,13 +9,13 @@
 
 //structs
 
-typedef	struct s_map
+typedef	struct  s_map
 {
-	char	**map;
-	int		exit;
-	int		collectibles;
-	int		player;
-	int 	player_x;
+	char		**map;
+	int			exit;
+	int			collectibles;
+	int			player;
+	int 		player_x;
 	int 	player_y;
 }	t_map;
 
