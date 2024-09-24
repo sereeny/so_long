@@ -14,57 +14,68 @@
 
 static int	file_to_array(char *file, t_map **map)
 {
-	char	*line;
-	char 	*tmp;
 	int		fd;
-	int		i;
-	int		j;
+	char	*line;
+	char	*temp;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return(error_sl(map, 1), 1);
-	line = get_next_line(fd);
-	if (!line)
 		return (error_sl(map, 1), 1);
-	tmp = (char *)malloc(sizeof(char) * 1);
+	line = get_next_line(fd);
+	temp = (char *)ft_calloc(1, 1);
+	temp = " ";
 	while (line)
 	{
-		tmp = ft_strjoin(tmp, line);
-		if (!tmp)
-			return (error_sl(map, 1), 1);
+		temp = ft_strjoin(temp, line);
 		line = get_next_line(fd);
 	}
-	(*map)->map = ft_split(tmp, '\n');
-	return (close(fd), 0);
+	(*map)->map = ft_split(temp, '\n'); 
+	if (!(*map)->map)
+		return (error_sl(map, 1), free(line), free(temp), 1);
+	return (free(line), free(temp), 0);
 }
 
-static int		rectangle(char **map)
+/*• The map can be composed of only these 5 characters:
+0 for an empty space,
+1 for a wall,
+C for a collectible,
+E for a map exit,
+P for the player’s starting position*/
+// checks that the characters from the map are 0, 1, C, E or P.
+static int    check_char(char    c)
 {
-	int len;
-	int i;
-	int j;
+    if (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P')
+        return 0;
+    return 1;
+}    
 
-	i = 1;
-	while(map[0][len] != '\0' && map[0][len] == '1') 
-		len++;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-			j++;
-		if (j != len)
-			return (1);
-		if (map[i][0] != '1' || map[i][j - 1] != '1')
-			return (1);
-		i++;
-	}
-	j = -1;
-	while (map[i] && j <= len)
-	{
-		if (map[i][++j] != '1')
-			return (1);
-	}
-	return (0);
+static int    rectangle(char **map)
+{
+    int len;
+    int i;
+    int j;
+
+    len = 0;
+    while(map[0][len] && map[0][len] == '1') 
+        len++;
+    i = 1;
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j] && !check_char(map[i][j]))
+            j++;
+        if (map[i][0] != '1' || map[i][j - 1] != '1' || j != len)
+            return(error_sl(map, 2), 1);
+        i++;
+    }
+    j = 0;
+    while (j < len)
+    {
+        if (map[i - 1][j] != '1')
+            return(error_sl(map, 2), 1);
+        j++;
+    }
+    return (0);
 }
 
 int	parse_map(char *file, t_map **map)

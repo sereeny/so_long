@@ -23,7 +23,7 @@ int ft_strlen_sl(char *str)
 	return (i);
 }
 
-void	error_sl(t_game **game, int type)
+void	error_sl(t_map **game, int type)
 {
 	if (game)
 		free(game);
@@ -36,5 +36,7 @@ static void	error_print(int type)
 	if (type == 0)
 		ft_printf("Use: ./so_long [map.ber]\n");
 	else if (type == 1)
-		ft_printf("No map file.\n");
+		ft_printf("Error opening map file.\n");
+	else if (type == 2)
+		ft_printf("Map size is invalid or has invalid characters.\n");
 }

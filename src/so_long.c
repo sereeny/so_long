@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if ((argc == 1)|| (!argv[1][0]))
 		return (1);
-	map = (t_map *)calloc(sizeof(t_map), 1);
+	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
 	if (!parse_map(argv[1], &map))
