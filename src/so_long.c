@@ -15,22 +15,18 @@
 int	main(int argc, char **argv)
 {
 	t_map	*map;
-	int 	i = 0;
 
-	if ((argc == 1)|| (!argv[1][0]))
+	if ((argc != 2)|| (!argv[1][0]))
 		return (error_sl(NULL, 0) ,1);
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	if (!parse_map(argv[1], map))
+	if (parse_map(argv[1], map))
 	{
-		while (map->map[i] != NULL) 
-		{
-        	printf("%s\n", map->map[i]);
-        	i++;
-		}
-		return (1);
+		printf("%d", map->collectibles); 
+		printf("%d", map->exit);
 	}
+	return (1);
 //	mlx_t	*mlx;
 //	mlx = mlx_init(256, 256, "42", true);
 //	if (!mlx)

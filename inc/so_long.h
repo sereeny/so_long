@@ -11,12 +11,14 @@
 
 typedef	struct  s_map
 {
-	char		**map;
+	char		**map_content;
+	int			width;
+	int			height;
 	int			exit;
 	int			collectibles;
 	int			player;
 	int 		player_x;
-	int 	player_y;
+	int 		player_y;
 }	t_map;
 
 int		main(int argc, char **argv);

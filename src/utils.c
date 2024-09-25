@@ -31,7 +31,13 @@ static void	error_print(int type)
 	else if (type == 1)
 		ft_printf("Error opening map file. Must have extension .ber.\n");
 	else if (type == 2)
-		ft_printf("Map size is invalid or has invalid characters.\n");
+		ft_printf("Error opening map file.\n");
+	else if (type == 3)
+		ft_printf("Map size is incorrect, walls are not around the map or \
+	there are invalid characters.\n");
+	else if (type == 4)
+		ft_printf("There has to be one exit, (at least) one collectible \
+and a starting position for the map to be valid.\n");
 }
 
 void	error_sl(t_map *game, int type)
