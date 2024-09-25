@@ -18,3 +18,8 @@ void	update_position(t_map *map, int x, int y)
 	map->player_x = x;
 	map->player_y = y;
 }
+
+int	valid_path(t_map *map)
+{
+	
+}
