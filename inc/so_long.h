@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/25 11:44:15 by ssandova          #+#    #+#             */
+/*   Updated: 2024/09/25 11:53:12 by ssandova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
-#define so_LONG_H
+# define SO_LONG_H
 
 # include "../libft/inc/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -9,22 +21,24 @@
 
 //structs
 
-typedef	struct  s_map
+typedef struct s_map
 {
-	char		**map_content;
+	char		**map_cont;
 	int			width;
 	int			height;
 	int			exit;
 	int			collectibles;
 	int			player;
-	int 		player_x;
-	int 		player_y;
+	int			player_x;
+	int			player_y;
 }	t_map;
 
 int		main(int argc, char **argv);
 
 // parsing
-int	parse_map(char *file, t_map *map);
+
+int		parse_map(char *file, t_map *map);
+void	update_position(t_map *map, int x, int y);
 
 //bool	parse_map(char *file);
 //void	error_type(t_game game, int type);
@@ -33,8 +47,6 @@ int	parse_map(char *file, t_map *map);
 //utils
 
 void	error_sl(t_map *game, int type);
-int		ft_strlen_sl(char *str);
 
-//int		ft_strlen_sl(char *str);
 
 #endif

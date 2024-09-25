@@ -6,22 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/24 19:13:25 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:43:01 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-
-
-int ft_strlen_sl(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	return (i);
-}
 
 static void	error_print(int type)
 {
@@ -46,4 +35,3 @@ void	error_sl(t_map *game, int type)
 		free(game);
 	error_print(type);
 }
-

@@ -6,12 +6,14 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/25 00:43:48 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:01:08 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+// Checks that there is only one exit, at least one collectible and a starting
+// position for the player, saving it in map->player_x and map->player_y.
 static int	check_tokens(t_map *map)
 {
 	int	i;
@@ -23,22 +25,22 @@ static int	check_tokens(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			if (map->map_content[i][j] == 'E')
+			if (map->map_cont[i][j] == 'E')
 				map->exit++;
-			else if (map->map_content[i][j] == 'P');
-				//update position;
-			else if (map->map_content[i][j] == 'C')
+			else if (map->map_cont[i][j] == 'P')
+				update_position(map, i, j);
+			else if (map->map_cont[i][j] == 'C')
 				map->collectibles++;
 			j++;
 		}
 		i++;
 	}
-	if (map->exit != 1 || map->collectibles < 0 || map->player != 1)
+	if (map->exit != 1 || map->collectibles < 1 || map->player != 1)
 		return (1);
 	return (0);
 }
 
-// put each line of the file in a matrix with gnl.
+// Saves each line of the map file in an the array in map.
 static int	file_to_array(char *file, t_map *map)
 {
 	int		fd;
@@ -60,47 +62,47 @@ static int	file_to_array(char *file, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map->map_content = ft_split(temp, '\n'); 
-	if (!map->map_content)
+	map->map_cont = ft_split(temp, '\n');
+	if (!map->map_cont)
 		return (close(fd), free(temp), 1);
 	return (close(fd), free(temp), 0);
 }
 
-/*• The map can be composed of only these 5 characters:
-0 for an empty space, 1 for a wall, C for a collectible, E for a map exit,
-P for the player’s starting position.*/
-static int    check_char(char    c)
+// Returns 0 if the character given is a 0 (floor), 1 (wall), C (collectible),
+// E (exit) or P (player).
+static int	check_char(char c)
 {
 	if (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P')
-		return 0;
-	return 1;
-}    
+		return (0);
+	return (1);
+}
 
-//checks map is rectangular, has walls on the borders and only has allowed characters.
-static int    rectangle(t_map *map)
+//Checks map is rectangular, has walls on the borders and only has
+//allowed characters.
+static int	rectangle(t_map *map)
 {
-	int len;
-	int i;
-	int j;
+	int	len;
+	int	i;
+	int	j;
 
 	len = 0;
-	while(map->map_content[0][len] && map->map_content[0][len] == '1') 
+	while (map->map_cont[0][len] && map->map_cont[0][len] == '1')
 		len++;
-	i = 1;
-	while (map->map_content[i])
+	i = 0;
+	while (map->map_cont[++i])
 	{
 		j = 0;
-		while (map->map_content[i][j] && !check_char(map->map_content[i][j]))
+		while (map->map_cont[i][j] && !check_char(map->map_cont[i][j]))
 			j++;
-		if (map->map_content[i][0] != '1' || map->map_content[i][j - 1] != '1' || j != len)
-			return(1);
-		i++;
+		if (map->map_cont[i][0] != '1' || map->map_cont[i][j - 1] != '1' ||
+		j != len)
+			return (1);
 	}
 	j = 0;
 	while (j < len)
 	{
-		if (map->map_content[i - 1][j] != '1' || i < 3 || len < 3)
-			return(1);
+		if (map->map_cont[i - 1][j] != '1' || i < 3 || len < 3)
+			return (1);
 		j++;
 	}
 	return (map->height = i, map->width = len, 0);
