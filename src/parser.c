@@ -118,5 +118,7 @@ int	parse_map(char *file, t_map *map)
 		return (error_sl(map, 3), 1);
 	if (check_tokens(map))
 		return (error_sl(map, 4), 1);
+	if (valid_path(map))
+		return (error_sl(map, 5), 1);
 	return (0);
 }

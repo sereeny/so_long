@@ -27,6 +27,8 @@ static void	error_print(int type)
 	else if (type == 4)
 		ft_printf("There has to be one exit, (at least) one collectible \
 and a starting position for the map to be valid.\n");
+	else if (type == 5)
+		ft_printf("The map given does not have a valid path.\n");
 }
 
 void	error_sl(t_map *game, int type)

@@ -39,6 +39,7 @@ int		main(int argc, char **argv);
 
 int		parse_map(char *file, t_map *map);
 void	update_position(t_map *map, int x, int y);
+int		valid_path(t_map *map);
 
 //bool	parse_map(char *file);
 //void	error_type(t_game game, int type);
