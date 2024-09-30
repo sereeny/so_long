@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	{
 		return (1);
 	}
+	ft_printf("valid map");
 	return (0);
 //	mlx_t	*mlx;
 //	mlx = mlx_init(256, 256, "42", true);

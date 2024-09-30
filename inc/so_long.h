@@ -24,6 +24,7 @@
 typedef struct s_map
 {
 	char		**map_cont;
+	bool		**visited;
 	int			width;
 	int			height;
 	int			exit;
