@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/25 11:41:09 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:11:07 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,11 @@ int	main(int argc, char **argv)
 	if (!map)
 		return (1);
 	if (parse_map(argv[1], map))
-	{
 		return (1);
-	}
-	ft_printf("valid map");
-	return (0);
 //	mlx_t	*mlx;
 //	mlx = mlx_init(256, 256, "42", true);
 //	if (!mlx)
 //		return (1);
 //	mlx_loop(mlx);
+	return (0);
 }

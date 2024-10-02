@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/25 12:01:08 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:57:52 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_tokens(t_map *map)
 			if (map->map_cont[i][j] == 'E')
 				map->exit++;
 			else if (map->map_cont[i][j] == 'P')
-				update_position(map, i, j);
+				update_position(map, j, i);
 			else if (map->map_cont[i][j] == 'C')
 				map->collectibles++;
 			j++;
@@ -63,7 +63,8 @@ static int	file_to_array(char *file, t_map *map)
 		line = get_next_line(fd);
 	}
 	map->map_cont = ft_split(temp, '\n');
-	if (!map->map_cont)
+	map->map_copy = ft_split(temp, '\n');
+	if (!map->map_cont || !map->map_copy)
 		return (close(fd), free(temp), 1);
 	return (close(fd), free(temp), 0);
 }
@@ -110,6 +111,10 @@ static int	rectangle(t_map *map)
 
 int	parse_map(char *file, t_map *map)
 {
+	int i;
+	int j;
+
+	i = -1;
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".ber", 4) != 0)
 		return (error_sl(map, 1), 1);
 	if (file_to_array(file, map))
@@ -118,7 +123,17 @@ int	parse_map(char *file, t_map *map)
 		return (error_sl(map, 3), 1);
 	if (check_tokens(map))
 		return (error_sl(map, 4), 1);
-	if (valid_path(map))
-		return (error_sl(map, 5), 1);
-	return (0);
+	flood_fill(map, map->player_x, map->player_y);
+	while (++i < map->height)
+	{
+		j = -1;
+		while (map->map_copy[i][++j])
+		{
+			if (map->map_copy[i][j] != 'F' && map->map_copy[i][j] != '0'
+				&& map->map_copy[i][j] != '1' && map->map_copy[i][j] != '\0'
+				&& map->map_copy[i][j] != '\n')
+				return (error_sl(map, 5), 1);
+		}
+	}
+	return (free_map(map->map_copy, map), 0);
 }

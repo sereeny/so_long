@@ -6,7 +6,7 @@ SRC = src/so_long.c src/parser.c src/utils.c src/parserii.c
 OBJ_DIR = obj
 SRC_O = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
 BONUS_O = $(SRC_BONUS:src_bonus/%.c=$(OBJ_DIR)/%.o)
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -g -Wall -Wextra -Werror
 
 all: LIBMLX $(NAME)
 

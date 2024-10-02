@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:15 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/25 11:53:12 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:35:40 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_map
 {
 	char		**map_cont;
-	bool		**visited;
+	char		**map_copy;
 	int			width;
 	int			height;
 	int			exit;
@@ -40,15 +40,14 @@ int		main(int argc, char **argv);
 
 int		parse_map(char *file, t_map *map);
 void	update_position(t_map *map, int x, int y);
-int		valid_path(t_map *map);
+void	flood_fill(t_map *map, int x, int y);
 
 //bool	parse_map(char *file);
-//void	error_type(t_game game, int type);
-//void	error_sl(t_game game, int type)
 
 //utils
 
 void	error_sl(t_map *game, int type);
+void	free_map(char **map, t_map *game);
 
 
 #endif

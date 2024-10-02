@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/09/25 11:43:01 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:31 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,20 @@ void	error_sl(t_map *game, int type)
 	if (game)
 		free(game);
 	error_print(type);
+}
+
+void	free_map(char **map, t_map *game)
+{
+	int	i;
+
+	i = 0;
+	if (!map || !*map)
+		return ;
+	while (i < game->height)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	game->map_copy = NULL;
 }
