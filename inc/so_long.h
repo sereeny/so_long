@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:15 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/02 16:35:40 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:13:58 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ typedef struct s_map
 	int			player_x;
 	int			player_y;
 }	t_map;
+
+typedef struct s_mlx
+{
+	void		*context;
+	void		*win;
+	int32_t		width;
+	int32_t		height;
+	double		delta_time;
+}	t_mlx;
 
 int		main(int argc, char **argv);
 
