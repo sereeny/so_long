@@ -6,13 +6,14 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/02 18:18:21 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:22:53 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+#include <errno.h>
 
-static void ft_hook(void* param)
+void ft_hook(void* param)
 {
 	const mlx_t* mlx = param;
 
@@ -35,9 +36,22 @@ int	main(int argc, char **argv)
 	mlx = mlx_init(256, 256, "42", true);
 	if (!mlx)
 		return (1);
-	mlx_image_t *img = mlx_new_image(mlx, 256, 256);
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	// mlx_image_t *img = mlx_new_image(mlx, 256, 256);
+	// mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	// mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_texture_t *a = mlx_load_png("/home/ssandova/Desktop/cursus/so_long/src/wall.png");
+	if (!a)
+	{
+		printf("%s", mlx_strerror(mlx_errno));
+		return 0;
+	}
+
+	mlx_image_t *img = mlx_texture_to_image(mlx, a);
+
+
+	int i = mlx_image_to_window(mlx, img, 100, 100);
+	ft_printf("%i", i);
+
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (0);
