@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/02 16:31:31 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:57:29 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	error_print(int type)
 {
 	ft_printf("Error\n");
 	if (type == 0)
-		ft_printf("Use: ./so_long [map.ber]\n");
+		ft_printf("Use: ./so_long map.ber\n");
 	else if (type == 1)
 		ft_printf("Error opening map file. Must have extension .ber.\n");
 	else if (type == 2)
@@ -29,6 +29,8 @@ static void	error_print(int type)
 and a starting position for the map to be valid.\n");
 	else if (type == 5)
 		ft_printf("The map given does not have a valid path.\n");
+	else if (type == 6)
+		ft_printf("Textures cannot be loaded.");
 }
 
 void	error_sl(t_map *game, int type)
