@@ -6,20 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 19:10:35 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:24:29 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-#include <errno.h>
-
-void	ft_hook(void *param)
-{
-	const mlx_t	*mlx;
-
-	mlx = param;
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
-}
 
 void	load_map(t_mlxinfo *mlx)
 {

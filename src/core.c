@@ -6,11 +6,23 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 20:19:40 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/08 00:02:16 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+void	rem_and_new(t_mlxinfo *mlx, int x, int y)
+{
+	if (mlx->map_info->map_cont[y][x] == 'C')
+	{
+		mlx->map_info->collectibles--;
+		mlx_image_to_window(mlx->mlx, mlx->wall, x * 64, y * 64);
+	}
+	mlx->map_info->player_x = x;
+	mlx->map_info->player_y = y;
+}
+
 
 void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 {
@@ -32,38 +44,34 @@ void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 	{
 		if (map[new_y][new_x] != '1')
 		{
-			mlx->map_info->player_x = new_x;
-			mlx->map_info->player_y = new_y;
-			mlx_image_to_window(mlx->mlx, mlx->player, mlx->map_info->player_x * 64, \
-		mlx->map_info->player_y * 64);
-			ft_printf("X es %i\nY es %i\n", mlx->map_info->player_x, mlx->map_info->player_y);
+
+//			rem_and_new(mlx, new_x, new_y);
 		}
 	}
 }
 
-void	my_keyhook(mlx_key_data_t keydata, void *mlx)
+void	my_keyhook(mlx_key_data_t key, void *mlx)
 {
 	t_mlxinfo	*dummy;
 	int			x;
 	int			y;
 
-	dummy = (t_mlxinfo *)mlx;s
-	x = dumm
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS || dummy->map_info->map_cont[][])
+	dummy = (t_mlxinfo *)mlx;
+	x = dummy->map_info->player_x;
+	y = dummy->map_info->player_y;
+	dummy->map_info->collectibles = 0;
+	if ((key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS) || (dummy-> \
+		map_info->map_cont[y][x] == 'E' && dummy->map_info->collectibles == 0))
 	{
 		free_game(dummy->map_info->map_cont, dummy->map_info);
-		mlx_close_window(dummy->mlx);s
+		mlx_close_window(dummy->mlx);
 	}
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, dummy->map_info-> \
-			player_x, dummy->map_info->player_y, 'w');
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)s
-		move_player(dummy, dummy->map_info->map_cont, dummy->map_info-> \
-			player_x, dummy->map_info->player_y, 's');
-	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, dummy->map_info-> \
-			player_x, dummy->map_info->player_y, 'a');
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, dummy->map_info-> \
-			player_x, dummy->map_info->player_y, 'd');
+	else if (key.key == MLX_KEY_W && key.action == MLX_PRESS)
+		move_player(dummy, dummy->map_info->map_cont, x, y, 'w');
+	else if (key.key == MLX_KEY_S && key.action == MLX_PRESS)
+		move_player(dummy, dummy->map_info->map_cont, x, y, 's');
+	else if (key.key == MLX_KEY_A && key.action == MLX_PRESS)
+		move_player(dummy, dummy->map_info->map_cont, x, y, 'a');
+	else if (key.key == MLX_KEY_D && key.action == MLX_PRESS)
+		move_player(dummy, dummy->map_info->map_cont, x, y, 'd');
 }
