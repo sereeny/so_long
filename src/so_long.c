@@ -94,6 +94,7 @@ int	main(int argc, char **argv)
 
 	mlx = mlx_initialize(map);
 	load_map(mlx);
+//	mlx_key_hook(mlx->mlx, key_detect(), )
 
 	mlx_loop(mlx->mlx);
 	mlx_terminate(mlx->mlx);
