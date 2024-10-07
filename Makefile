@@ -1,7 +1,7 @@
 NAME = so_long
 LIBFT_PATH = libft
 LIBMLX = MLX42
-SRC = src/so_long.c src/parser.c src/utils.c src/parserii.c
+SRC = src/so_long.c src/parser.c src/utils.c src/parserii.c src/core.c
 #SRC_BONUS =
 OBJ_DIR = obj
 SRC_O = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

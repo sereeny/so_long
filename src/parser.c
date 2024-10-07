@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/02 17:57:52 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:57:52 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ static int	rectangle(t_map *map)
 
 int	parse_map(char *file, t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".ber", 4) != 0)
@@ -135,5 +135,5 @@ int	parse_map(char *file, t_map *map)
 				return (error_sl(map, 5), 1);
 		}
 	}
-	return (free_map(map->map_copy, map), 0);
+	return (free_game(map->map_copy, map), 0);
 }

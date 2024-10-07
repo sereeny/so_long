@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/05 19:57:29 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:02:58 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	error_sl(t_map *game, int type)
 	error_print(type);
 }
 
-void	free_map(char **map, t_map *game)
+void	free_game(char **map, t_map *game)
 {
 	int	i;
 
@@ -54,4 +54,17 @@ void	free_map(char **map, t_map *game)
 	}
 	free(map);
 	game->map_copy = NULL;
+}
+
+void	free_mlx(t_mlxinfo *mlx)
+{
+	if (!mlx)
+		return ;
+	free_game(mlx->map_info->map_cont, mlx->map_info);
+	mlx_delete_image(mlx->mlx, mlx->collectible);
+	mlx_delete_image(mlx->mlx, mlx->empty);
+	mlx_delete_image(mlx->mlx, mlx->exit);
+	mlx_delete_image(mlx->mlx, mlx->player);
+	mlx_delete_image(mlx->mlx, mlx->wall);
+	free(mlx);
 }
