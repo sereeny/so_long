@@ -1,0 +1,12 @@
+{
+    leak mlx_init
+    Memcheck:Leak
+    ...
+    fun:mlx_init
+}
+{
+    leak mlx_loop
+    Memcheck:Leak
+    ...
+    fun:mlx_loop
+}

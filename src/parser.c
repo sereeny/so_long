@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 17:57:52 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:54:54 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*read_map_file(int fd)
 		aux = ft_strjoin(temp, line);
 		free(temp);
 		if (!aux)
-			return (free(line), NULL);
+			return (free(line), free(temp), NULL);
 		temp = aux;
 		free(line);
 		line = get_next_line(fd);
