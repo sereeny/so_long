@@ -12,61 +12,49 @@
 
 #include "../inc/so_long.h"
 
-// Checks that there is only one exit, at least one collectible and a starting
-// position for the player, saving it in map->player_x and map->player_y.
-static int	check_tokens(t_map *map)
+// Opens fd, reads each like and returns a string with all the lines joined.
+static char	*read_map_file(int fd)
 {
-	int	i;
-	int	j;
+	char	*line;
+	char	*temp;
+	char	*aux;
 
-	i = 0;
-	while (i < map->height)
+	temp = ft_calloc(1, 1);
+	if (!temp)
+		return (NULL);
+	line = get_next_line(fd);
+	while (line)
 	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (map->map_cont[i][j] == 'E')
-				map->exit++;
-			else if (map->map_cont[i][j] == 'P')
-				update_position(map, j, i);
-			else if (map->map_cont[i][j] == 'C')
-				map->collectibles++;
-			j++;
-		}
-		i++;
+		aux = ft_strjoin(temp, line);
+		free(temp);
+		if (!aux)
+			return (free(line), NULL);
+		temp = aux;
+		free(line);
+		line = get_next_line(fd);
 	}
-	if (map->exit != 1 || map->collectibles < 1 || map->player != 1)
-		return (1);
-	return (0);
+	return (temp);
 }
 
 // Saves each line of the map file in an the array in map.
 static int	file_to_array(char *file, t_map *map)
 {
 	int		fd;
-	char	*line;
-	char	*temp;
+	char	*s;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	line = get_next_line(fd);
-	temp = ft_calloc(1, 1);
-	if (!line)
-		return (close(fd), 1);
-	while (line)
-	{
-		temp = ft_strjoin(temp, line);
-		if (!temp)
-			return (1);
-		free(line);
-		line = get_next_line(fd);
-	}
-	map->map_cont = ft_split(temp, '\n');
-	map->map_copy = ft_split(temp, '\n');
+	s = read_map_file(fd);
+	close (fd);
+	if (!s)
+		return (1);
+	map->map_cont = ft_split(s, '\n');
+	map->map_copy = ft_split(s, '\n');
+	free(s);
 	if (!map->map_cont || !map->map_copy)
-		return (close(fd), free(temp), 1);
-	return (close(fd), free(temp), 0);
+		return (1);
+	return (0);
 }
 
 // Returns 0 if the character given is a 0 (floor), 1 (wall), C (collectible),
@@ -135,5 +123,5 @@ int	parse_map(char *file, t_map *map)
 				return (error_sl(map, 5), 1);
 		}
 	}
-	return (free_game(map->map_copy, map), 0);
+	return (free_map(map->map_copy, map->height), map->map_copy = NULL, 0);
 }

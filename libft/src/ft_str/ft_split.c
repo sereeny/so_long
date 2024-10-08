@@ -92,11 +92,11 @@ char	**ft_split(char const *s, char c)
 		else if ((i == ft_strlen(s) || s[i] == c) && st >= 0)
 		{
 			array[j++] = ft_strings(s, st, i);
-			if (array[j - 1] == 0)
+			if (array[j - 1] == NULL)
 				return (ft_free(j, array), NULL);
 			st = -1;
 		}
 	}
-	array[j] = 0;
+	array[j] = NULL;
 	return (array);
 }

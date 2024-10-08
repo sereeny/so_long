@@ -38,6 +38,7 @@ void	load_map(t_mlxinfo *mlx)
 	}
 	mlx_image_to_window(mlx->mlx, mlx->player, mlx->map_info->player_x * 64, \
 		mlx->map_info->player_y * 64);
+	mlx->moves = 0;
 }
 
 mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p)
@@ -48,6 +49,8 @@ mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p)
 	if (!mlx || !texture)
 		return (NULL);
 	img = mlx_texture_to_image(mlx, texture);
+	if (!img)
+		return (NULL);
 	mlx_delete_texture(texture);
 	return (img);
 }
@@ -71,7 +74,7 @@ t_mlxinfo	*mlx_initialize(t_map *map)
 		"textures/player.png");
 	if (!mlx->collectible || !mlx->empty || !mlx->exit || !mlx->player || \
 		!mlx->wall)
-		return (error_sl(map, 6), NULL);
+		return (free_mlx(mlx), NULL);
 	return (mlx);
 }
 
@@ -92,5 +95,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(mlx->mlx, &my_keyhook, mlx);
 	mlx_loop(mlx->mlx);
 	mlx_terminate(mlx->mlx);
+	free(mlx);
 	return (0);
 }

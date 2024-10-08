@@ -12,6 +12,34 @@
 
 #include "../inc/so_long.h"
 
+// Checks that there is only one exit, at least one collectible and a starting
+// position for the player, saving it in map->player_x and map->player_y.
+int	check_tokens(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->map_cont[i][j] == 'E')
+				map->exit++;
+			else if (map->map_cont[i][j] == 'P')
+				update_position(map, j, i);
+			else if (map->map_cont[i][j] == 'C')
+				map->collectibles++;
+			j++;
+		}
+		i++;
+	}
+	if (map->exit != 1 || map->collectibles < 1 || map->player != 1)
+		return (1);
+	return (0);
+}
+
 void	update_position(t_map *map, int x, int y)
 {
 	map->player++;

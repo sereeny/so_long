@@ -12,15 +12,57 @@
 
 #include "../inc/so_long.h"
 
-void	rem_and_new(t_mlxinfo *mlx, int x, int y)
+void	close_mlx(t_mlxinfo *mlx, int type)
+{
+	mlx_close_window(mlx->mlx);
+	free_mlx(mlx);
+	if (type == 1)
+		ft_printf("Game ended.\n");
+	else if (type == 2)
+		ft_printf("Error loading textures or images.\n");
+}
+
+static void	print_player(t_mlxinfo *mlx)
+{
+	int x;
+	int y;
+
+	x = mlx->map_info->player_x;
+	y = mlx->map_info->player_y;
+	if (mlx->player)
+	{
+		mlx_delete_image(mlx->mlx, mlx->player);
+		mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player.png");
+	}
+	if (!mlx->player)
+		close_mlx(mlx, 2);
+	mlx_image_to_window(mlx->mlx, mlx->player, x * 64, y * 64);
+}
+
+void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 {
 	if (mlx->map_info->map_cont[y][x] == 'C')
 	{
 		mlx->map_info->collectibles--;
-		mlx_image_to_window(mlx->mlx, mlx->wall, x * 64, y * 64);
+		mlx->map_info->map_cont[y][x] = '0';
+		if (!mlx_image_to_window(mlx->mlx, mlx->empty, x * 64, y * 64))
+			close_mlx(mlx, 2);
+		if (mlx->player && mlx->player->count > 0)
+		{
+			if (m == 'w')
+				mlx->player->instances[0].y -= 64;
+			else if (m == 's')
+				mlx->player->instances[0].y += 64;
+			else if (m == 'a')
+				mlx->player->instances[0].x -= 64;
+			else if (m == 'd')
+				mlx->player->instances[0].x += 64;
+		}
 	}
 	mlx->map_info->player_x = x;
 	mlx->map_info->player_y = y;
+	mlx->moves += 1;
+	ft_printf("Moves: %i\n", mlx->moves);
 }
 
 
@@ -39,13 +81,13 @@ void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 		new_x--;
 	else if (m == 'd')
 		new_x++;
-	if (new_y < mlx->map_info->height && new_y >= 0 && new_x >= 0 && \
-		new_x < mlx->map_info->width && map[new_y][new_x])
+	if (new_y >= 0 && new_y < mlx->map_info->height && new_x >= 0
+	&& new_x < mlx->map_info->width && map[new_y] && map[new_y][new_x])
 	{
 		if (map[new_y][new_x] != '1')
 		{
-
-//			rem_and_new(mlx, new_x, new_y);
+			rem_and_new(mlx, m, new_x, new_y);
+			print_player(mlx);
 		}
 	}
 }
@@ -59,13 +101,11 @@ void	my_keyhook(mlx_key_data_t key, void *mlx)
 	dummy = (t_mlxinfo *)mlx;
 	x = dummy->map_info->player_x;
 	y = dummy->map_info->player_y;
-	dummy->map_info->collectibles = 0;
-	if ((key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS) || (dummy-> \
-		map_info->map_cont[y][x] == 'E' && dummy->map_info->collectibles == 0))
-	{
-		free_game(dummy->map_info->map_cont, dummy->map_info);
-		mlx_close_window(dummy->mlx);
-	}
+	if ((dummy-> map_info->map_cont[y][x] == 'E' && dummy->map_info->
+		collectibles == 0))
+		close_mlx(mlx, 1);
+	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS)
+		close_mlx(mlx, 0);
 	else if (key.key == MLX_KEY_W && key.action == MLX_PRESS)
 		move_player(dummy, dummy->map_info->map_cont, x, y, 'w');
 	else if (key.key == MLX_KEY_S && key.action == MLX_PRESS)

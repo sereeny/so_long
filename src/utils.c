@@ -31,40 +31,55 @@ and a starting position for the map to be valid.\n");
 		ft_printf("The map given does not have a valid path.\n");
 	else if (type == 6)
 		ft_printf("Textures cannot be loaded.");
+	else
+		return ;
 }
 
-void	error_sl(t_map *game, int type)
-{
-	if (game)
-		free(game);
-	error_print(type);
-}
-
-void	free_game(char **map, t_map *game)
+void	free_map(char **map, int height)
 {
 	int	i;
 
 	i = 0;
-	if (!map || !*map)
+	if (!map)
 		return ;
-	while (i < game->height)
+	while (i < height && map[i])
 	{
 		free(map[i]);
 		i++;
 	}
 	free(map);
-	game->map_copy = NULL;
+}
+
+void	error_sl(t_map *game, int type)
+{
+	if (!game)
+		return ;
+	if (game)
+	{
+		if (game->map_cont)
+		{
+			free_map(game->map_cont, game->height);
+			game->map_cont = NULL;
+		}
+		if (game->map_copy)
+		{
+			free_map(game->map_copy, game->height);
+			game->map_copy = NULL;
+		}
+		free(game);
+	}
+	if (type >= 0)
+		error_print(type);
 }
 
 void	free_mlx(t_mlxinfo *mlx)
 {
 	if (!mlx)
 		return ;
-	free_game(mlx->map_info->map_cont, mlx->map_info);
+	error_sl(mlx->map_info, -1);
 	mlx_delete_image(mlx->mlx, mlx->collectible);
 	mlx_delete_image(mlx->mlx, mlx->empty);
 	mlx_delete_image(mlx->mlx, mlx->exit);
 	mlx_delete_image(mlx->mlx, mlx->player);
 	mlx_delete_image(mlx->mlx, mlx->wall);
-	free(mlx);
 }
