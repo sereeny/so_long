@@ -22,7 +22,7 @@ void	close_mlx(t_mlxinfo *mlx, int type)
 		ft_printf("Error loading textures or images.\n");
 }
 
-static void	print_player(t_mlxinfo *mlx)
+static void	print_player(t_mlxinfo *mlx, char m)
 {
 	int x;
 	int y;
@@ -32,7 +32,14 @@ static void	print_player(t_mlxinfo *mlx)
 	if (mlx->player)
 	{
 		mlx_delete_image(mlx->mlx, mlx->player);
-		mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_f.png");
+		if (m == 'w')
+			mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_b.png");
+		else if (m == 's')
+			mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_f.png");
+		else if (m == 'a')
+			mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_l.png");
+		else if (m == 'd')
+			mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_r.png");
 	}
 	if (!mlx->player)
 		close_mlx(mlx, 2);
@@ -87,7 +94,7 @@ void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 		if (map[new_y][new_x] != '1')
 		{
 			rem_and_new(mlx, m, new_x, new_y);
-			print_player(mlx);
+			print_player(mlx, m);
 		}
 	}
 }
