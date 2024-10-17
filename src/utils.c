@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 18:02:58 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/12 23:20:40 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	free_map(char **map, int height)
 
 void	error_sl(t_map *game, int type)
 {
-	if (!game)
-		return ;
 	if (game)
 	{
 		if (game->map_cont)

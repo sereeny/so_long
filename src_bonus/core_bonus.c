@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   core_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/08 00:02:16 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:24:18 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	close_mlx(t_mlxinfo *mlx, int type)
+static void	close_mlx(t_mlxinfo *mlx, int type)
 {
 	mlx_close_window(mlx->mlx);
 	free_mlx(mlx);
@@ -20,6 +20,8 @@ void	close_mlx(t_mlxinfo *mlx, int type)
 		ft_printf("Game ended.\n");
 	else if (type == 2)
 		ft_printf("Error loading textures or images.\n");
+	else if (type == 3)
+		ft_printf("Game over!\n");
 }
 
 static void	print_player(t_mlxinfo *mlx, char m)
@@ -46,7 +48,7 @@ static void	print_player(t_mlxinfo *mlx, char m)
 	mlx_image_to_window(mlx->mlx, mlx->player, x * 64, y * 64);
 }
 
-void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
+static void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 {
 	if (mlx->map_info->map_cont[y][x] == 'C')
 	{
@@ -73,7 +75,7 @@ void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 }
 
 
-void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
+static void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 {
 	int	new_x;
 	int new_y;
@@ -113,6 +115,8 @@ void	my_keyhook(mlx_key_data_t key, void *mlx)
 		close_mlx(mlx, 1);
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS)
 		close_mlx(mlx, 0);
+	if (dummy->map_info->map_cont[y][x] == 'X')
+		close_mlx(mlx, 3);
 	else if (key.key == MLX_KEY_W && key.action == MLX_PRESS)
 		move_player(dummy, dummy->map_info->map_cont, x, y, 'w');
 	else if (key.key == MLX_KEY_S && key.action == MLX_PRESS)

@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 22:24:29 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:58:58 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,16 @@ int	main(int argc, char **argv)
 {
 	t_map			*map;
 	t_mlxinfo		*mlx;
+	char			*s;
 
 	if ((argc != 2) || (!argv[1][0]))
 		return (error_sl(NULL, 0), 1);
+	s = ft_strrchr(argv[1], '/');
+	if (s)
+	{
+		if (ft_strlen(s) < 6)
+			return (error_sl(NULL, 0), 1);
+	}
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);

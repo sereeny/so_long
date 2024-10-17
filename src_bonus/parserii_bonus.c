@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parserii.c                                         :+:      :+:    :+:   */
+/*   parserii_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:47:25 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/02 17:02:25 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:27:42 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	flood_fill(t_map *map, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 		return ;
-	if (map->map_copy[y][x] == '1' || map->map_copy[y][x] == 'F')
+	if (map->map_copy[y][x] == '1' || map->map_copy[y][x] == 'X' || \
+		map->map_copy[y][x] == 'F')
 		return ;
 	map->map_copy[y][x] = 'F';
 	flood_fill(map, x - 1, y);

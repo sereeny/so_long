@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/08 17:54:54 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:56:12 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static int	file_to_array(char *file, t_map *map)
 }
 
 // Returns 0 if the character given is a 0 (floor), 1 (wall), C (collectible),
-// E (exit) or P (player).
+// E (exit), P (player) or X (enemy patrol).
 static int	check_char(char c)
 {
-	if (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P')
+	if (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P' || c == 'X')
 		return (0);
 	return (1);
 }
@@ -119,7 +119,7 @@ int	parse_map(char *file, t_map *map)
 		{
 			if (map->map_copy[i][j] != 'F' && map->map_copy[i][j] != '0'
 				&& map->map_copy[i][j] != '1' && map->map_copy[i][j] != '\0'
-				&& map->map_copy[i][j] != '\n')
+				&& map->map_copy[i][j] != '\n' && map->map_copy[i][j] != 'X')
 				return (error_sl(map, 5), 1);
 		}
 	}

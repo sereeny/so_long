@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/07 22:24:29 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:17:22 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,29 @@ void	load_map(t_mlxinfo *mlx)
 {
 	int	i;
 	int	j;
+	char	**map;
 
-	i = 0;
-	while (i < mlx->map_info->height)
+	map = mlx->map_info->map_cont;
+	i = -1;
+	while (++i < mlx->map_info->height)
 	{
-		j = 0;
-		while (j < mlx->map_info->width)
+		j = -1;
+		while (++j < mlx->map_info->width)
 		{
-			if (mlx->map_info->map_cont[i][j] == '0' || mlx->map_info-> \
-			map_cont[i][j] == 'P' || mlx->map_info->map_cont[i][j] == 'C')
+			if (map[i][j] == '0' || map[i][j] == 'P' || map[i][j] == 'C')
 				mlx_image_to_window(mlx->mlx, mlx->empty, j * 64, i * 64);
-			if (mlx->map_info->map_cont[i][j] == 'C')
+			if (map[i][j] == 'C')
 				mlx_image_to_window(mlx->mlx, mlx->collectible, j * 64, i * 64);
-			else if (mlx->map_info->map_cont[i][j] == '1')
+			else if (map[i][j] == '1')
 				mlx_image_to_window(mlx->mlx, mlx->wall, j * 64, i * 64);
-			else if (mlx->map_info->map_cont[i][j] == 'E')
+			else if (map[i][j] == 'E')
 				mlx_image_to_window(mlx->mlx, mlx->exit, j * 64, i * 64);
-			j++;
+			else if (map[i][j] == 'X')
+				mlx_image_to_window(mlx->mlx, mlx->enemy, j * 64, i * 64);
 		}
-		i++;
 	}
 	mlx_image_to_window(mlx->mlx, mlx->player, mlx->map_info->player_x * 64, \
 		mlx->map_info->player_y * 64);
-	mlx->moves = 0;
 }
 
 mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p)
@@ -72,9 +72,11 @@ t_mlxinfo	*mlx_initialize(t_map *map)
 	mlx->exit = mlx_tex_to_img(mlx->mlx, mlx->exit, "textures/exit.png");
 	mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, \
 		"textures/player_f.png");
+	mlx->enemy = mlx_tex_to_img(mlx->mlx, mlx->enemy, "textures/poison.png");
 	if (!mlx->collectible || !mlx->empty || !mlx->exit || !mlx->player || \
-		!mlx->wall)
+		!mlx->wall || mlx->enemy)
 		return (free_mlx(mlx), NULL);
+	mlx->moves = 0;
 	return (mlx);
 }
 
