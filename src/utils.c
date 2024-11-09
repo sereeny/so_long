@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/12 23:20:40 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:18:42 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,21 @@ static void	error_print(int type)
 	else if (type == 2)
 		ft_printf("Error opening map file.\n");
 	else if (type == 3)
-		ft_printf("Map size is incorrect, walls are not around the map or \
-	there are invalid characters.\n");
+	{
+		ft_printf("Map size is incorrect, walls are not around the map ");
+		ft_printf("or there are invalid characters.\n");
+	}
 	else if (type == 4)
-		ft_printf("There has to be one exit, (at least) one collectible \
-and a starting position for the map to be valid.\n");
+	{
+		ft_printf("There has to be one exit, (at least) one collectible, ");
+		ft_printf("and a starting position for the map to be valid.\n");
+	}
 	else if (type == 5)
 		ft_printf("The map given does not have a valid path.\n");
 	else if (type == 6)
-		ft_printf("Textures cannot be loaded.");
+		ft_printf("Textures cannot be loaded.\n");
 	else
-		return ;
+		return;
 }
 
 void	free_map(char **map, int height)

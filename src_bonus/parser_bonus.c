@@ -6,11 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/15 22:56:12 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 00:37:01 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc/so_long_bonus.h"
 
 // Opens fd, reads each like and returns a string with all the lines joined.
 static char	*read_map_file(int fd)
@@ -97,12 +97,23 @@ static int	rectangle(t_map *map)
 	return (map->height = i, map->width = len, 0);
 }
 
-int	parse_map(char *file, t_map *map)
+static void print_map(t_map *map)
+{
+    for (int i = 0; i < map->height; i++)
+    {
+        for (int j = 0; j < map->width; j++)
+        {
+            ft_putchar_fd(map->map_copy[i][j], 1);
+        }
+        ft_putchar_fd('\n', 1);
+    }
+}
+
+int	parse_map_bonus(char *file, t_map *map)
 {
 	int	i;
 	int	j;
 
-	i = -1;
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".ber", 4) != 0)
 		return (error_sl(map, 1), 1);
 	if (file_to_array(file, map))
@@ -111,15 +122,16 @@ int	parse_map(char *file, t_map *map)
 		return (error_sl(map, 3), 1);
 	if (check_tokens(map))
 		return (error_sl(map, 4), 1);
-	flood_fill(map, map->player_x, map->player_y);
+	flood_fill_bonus(map, map->player_x, map->player_y);
+	i = -1;
+	print_map(map);
 	while (++i < map->height)
 	{
 		j = -1;
 		while (map->map_copy[i][++j])
 		{
-			if (map->map_copy[i][j] != 'F' && map->map_copy[i][j] != '0'
-				&& map->map_copy[i][j] != '1' && map->map_copy[i][j] != '\0'
-				&& map->map_copy[i][j] != '\n' && map->map_copy[i][j] != 'X')
+			if (map->map_copy[i][j] == 'C' || map->map_copy[i][j] == 'E' || 
+				map->map_copy[i][j] == 'P')
 				return (error_sl(map, 5), 1);
 		}
 	}

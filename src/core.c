@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/08 00:02:16 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:15:58 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ void	close_mlx(t_mlxinfo *mlx, int type)
 
 static void	print_player(t_mlxinfo *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = mlx->map_info->player_x;
 	y = mlx->map_info->player_y;
 	if (mlx->player)
 	{
 		mlx_delete_image(mlx->mlx, mlx->player);
-		mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, "textures/player_f.png");
+		mlx->player = mlx_tex_to_img(mlx->mlx, mlx->player, \
+		"textures/player_f.png");
 	}
 	if (!mlx->player)
 		close_mlx(mlx, 2);
@@ -65,14 +66,15 @@ void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 	ft_printf("Moves: %i\n", mlx->moves);
 }
 
-
-void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
+void	move_player(t_mlxinfo *mlx, int x, int y, char m)
 {
-	int	new_x;
-	int new_y;
+	int		new_x;
+	int		new_y;
+	char	**map;
 
 	new_x = x;
 	new_y = y;
+	map = mlx->map_info->map_cont;
 	if (m == 'w')
 		new_y--;
 	else if (m == 's')
@@ -82,7 +84,7 @@ void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 	else if (m == 'd')
 		new_x++;
 	if (new_y >= 0 && new_y < mlx->map_info->height && new_x >= 0
-	&& new_x < mlx->map_info->width && map[new_y] && map[new_y][new_x])
+		&& new_x < mlx->map_info->width && map[new_y] && map[new_y][new_x])
 	{
 		if (map[new_y][new_x] != '1')
 		{
@@ -101,17 +103,17 @@ void	my_keyhook(mlx_key_data_t key, void *mlx)
 	dummy = (t_mlxinfo *)mlx;
 	x = dummy->map_info->player_x;
 	y = dummy->map_info->player_y;
-	if ((dummy-> map_info->map_cont[y][x] == 'E' && dummy->map_info->
-		collectibles == 0))
+	if ((dummy-> map_info->map_cont[y][x] == 'E' && dummy->map_info
+		->collectibles == 0))
 		close_mlx(mlx, 1);
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS)
 		close_mlx(mlx, 0);
 	else if (key.key == MLX_KEY_W && key.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, x, y, 'w');
+		move_player(dummy, x, y, 'w');
 	else if (key.key == MLX_KEY_S && key.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, x, y, 's');
+		move_player(dummy, x, y, 's');
 	else if (key.key == MLX_KEY_A && key.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, x, y, 'a');
+		move_player(dummy, x, y, 'a');
 	else if (key.key == MLX_KEY_D && key.action == MLX_PRESS)
-		move_player(dummy, dummy->map_info->map_cont, x, y, 'd');
+		move_player(dummy, x, y, 'd');
 }

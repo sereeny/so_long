@@ -80,26 +80,23 @@ OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 all: 			$(NAME)
 
 $(NAME): 		$(OBJ)
-				@echo "📦 Creating archive $@..."
+				@echo "\033[1;32m[INFO]\033[0m Building libft library..."
 				@$(AR) $(NAME) $(OBJ)
-				@echo "✅ Archive $@ created."
+				@echo "\033[1;32m[OK]\033[0m $(NAME) created."
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
-				@echo "🔨 Compiling $< into $@..."
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(INC) -c $< -o $@
-				@echo "✅ Compiled $< into $@."
+				@echo "\033[1;34m[INFO]\033[0m Compiled $< into $@"
 
 clean:
-				@echo "🧹 Cleaning object files and directories..."
 				@$(RM) -r $(OBJ_DIR)
 				@$(RM) .cache_exists
-				@echo "🧼 Cleaned."
+				@echo "\033[1;33m[CLEAN]\033[0m Object files and directories removed."
 
 fclean: 		clean
-				@echo "🗑️ Removing archive $(NAME)..."
 				@$(RM) $(NAME)
-				@echo "❌ Removed archive $(NAME)."
+				@echo "\033[1;33m[INFO]\033[0m Removed archive $(NAME)."
 
 re: 			fclean all
 

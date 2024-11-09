@@ -6,11 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/15 23:24:18 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:48:04 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc/so_long_bonus.h"
 
 static void	close_mlx(t_mlxinfo *mlx, int type)
 {
@@ -101,7 +101,7 @@ static void	move_player(t_mlxinfo *mlx, char **map, int x, int y, char m)
 	}
 }
 
-void	my_keyhook(mlx_key_data_t key, void *mlx)
+void	my_keyhook_b(mlx_key_data_t key, void *mlx)
 {
 	t_mlxinfo	*dummy;
 	int			x;

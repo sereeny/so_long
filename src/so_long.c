@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/13 17:58:58 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/10/18 01:04:14 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p)
 	return (img);
 }
 
-t_mlxinfo	*mlx_initialize(t_map *map)
+static t_mlxinfo	*mlx_initialize(t_map *map)
 {
 	t_mlxinfo		*mlx;
 

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 11:44:15 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/18 14:59:53 by ssandova         ###   ########.fr       */
+/*   Created: 2024/10/18 00:34:03 by ssandova          #+#    #+#             */
+/*   Updated: 2024/10/18 12:52:14 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../libft/inc/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -50,14 +50,14 @@ typedef struct s_mlxinfo
 int		main(int argc, char **argv);
 
 //play
-void		my_keyhook(mlx_key_data_t key, void *mlx);
+void		my_keyhook_b(mlx_key_data_t keydata, void* param);
 mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p);
 
 // parsing
 
-int		parse_map(char *file, t_map *map);
+int		parse_map_bonus(char *file, t_map *map);
 void	update_position(t_map *map, int x, int y);
-void	flood_fill(t_map *map, int x, int y);
+void	flood_fill_bonus(t_map *map, int x, int y);
 int		check_tokens(t_map *map);
 
 //utils

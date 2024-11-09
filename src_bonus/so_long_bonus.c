@@ -6,35 +6,35 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/15 23:17:22 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 00:58:54 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc/so_long_bonus.h"
 
-void	load_map(t_mlxinfo *mlx)
+static void	load_map_bonus(t_mlxinfo *mlx)
 {
-	int	i;
-	int	j;
-	char	**map;
+	int		i;
+	int		j;
+	char	tile;
 
-	map = mlx->map_info->map_cont;
 	i = -1;
 	while (++i < mlx->map_info->height)
 	{
 		j = -1;
 		while (++j < mlx->map_info->width)
 		{
-			if (map[i][j] == '0' || map[i][j] == 'P' || map[i][j] == 'C')
+			tile = mlx->map_info->map_cont[i][j];
+			if (tile == '0' || tile == 'P' || tile == 'C' || tile == 'X')
 				mlx_image_to_window(mlx->mlx, mlx->empty, j * 64, i * 64);
-			if (map[i][j] == 'C')
+			if (tile == 'C')
 				mlx_image_to_window(mlx->mlx, mlx->collectible, j * 64, i * 64);
-			else if (map[i][j] == '1')
-				mlx_image_to_window(mlx->mlx, mlx->wall, j * 64, i * 64);
-			else if (map[i][j] == 'E')
-				mlx_image_to_window(mlx->mlx, mlx->exit, j * 64, i * 64);
-			else if (map[i][j] == 'X')
+			if (tile == 'X')
 				mlx_image_to_window(mlx->mlx, mlx->enemy, j * 64, i * 64);
+			else if (tile == '1')
+				mlx_image_to_window(mlx->mlx, mlx->wall, j * 64, i * 64);
+			else if (tile == 'E')
+				mlx_image_to_window(mlx->mlx, mlx->exit, j * 64, i * 64);
 		}
 	}
 	mlx_image_to_window(mlx->mlx, mlx->player, mlx->map_info->player_x * 64, \
@@ -55,7 +55,7 @@ mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p)
 	return (img);
 }
 
-t_mlxinfo	*mlx_initialize(t_map *map)
+static t_mlxinfo	*mlx_initialize_bonus(t_map *map)
 {
 	t_mlxinfo		*mlx;
 
@@ -90,11 +90,12 @@ int	main(int argc, char **argv)
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	if (parse_map(argv[1], map))
+	if (parse_map_bonus(argv[1], map))
 		return (1);
-	mlx = mlx_initialize(map);
-	load_map(mlx);
-	mlx_key_hook(mlx->mlx, &my_keyhook, mlx);
+	mlx = mlx_initialize_bonus(map);
+	load_map_bonus(mlx);
+	mlx->moves = 0;
+	mlx_key_hook(mlx->mlx, &my_keyhook_b, mlx);
 	mlx_loop(mlx->mlx);
 	mlx_terminate(mlx->mlx);
 	free(mlx);
