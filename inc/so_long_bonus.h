@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:34:03 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/18 12:52:14 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:36:48 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mlxinfo
 	mlx_image_t	*exit;
 	mlx_image_t	*enemy;
 	mlx_image_t	*player;
+	mlx_image_t	*text;
 	t_map		*map_info;
 	int			moves;
 }	t_mlxinfo;

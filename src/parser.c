@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/15 20:55:18 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:21:03 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static int	file_to_array(char *file, t_map *map)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (1);
+		return (0);
 	s = read_map_file(fd);
 	close (fd);
 	if (!s)
-		return (1);
+		return (0);
 	map->map_cont = ft_split(s, '\n');
 	map->map_copy = ft_split(s, '\n');
 	free(s);
 	if (!map->map_cont || !map->map_copy)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 // Returns 0 if the character given is a 0 (floor), 1 (wall), C (collectible),
@@ -87,16 +87,16 @@ static int	rectangle(t_map *map)
 			j++;
 		if (map->map_cont[i][0] != '1' || map->map_cont[i][j - 1] != '1' ||
 		j != len)
-			return (1);
+			return (0);
 	}
 	j = 0;
 	while (j < len)
 	{
 		if (map->map_cont[i - 1][j] != '1' || i < 3 || len < 3)
-			return (1);
+			return (0);
 		j++;
 	}
-	return (map->height = i, map->width = len, 0);
+	return (map->height = i, map->width = len, 1);
 }
 
 int	parse_map(char *file, t_map *map)
@@ -106,24 +106,23 @@ int	parse_map(char *file, t_map *map)
 
 	i = -1;
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".ber", 4) != 0)
-		return (error_sl(map, 1), 1);
-	if (file_to_array(file, map))
-		return (error_sl(map, 2), 1);
-	if (rectangle(map))
-		return (error_sl(map, 3), 1);
-	if (check_tokens(map))
-		return (error_sl(map, 4), 1);
+		return (error_sl(map, 1), 0);
+	if (!file_to_array(file, map))
+		return (error_sl(map, 2), 0);
+	if (!rectangle(map))
+		return (error_sl(map, 3), 0);
+	if (!check_tokens(map))
+		return (error_sl(map, 4), 0);
 	flood_fill(map, map->player_x, map->player_y);
 	while (++i < map->height)
 	{
 		j = -1;
 		while (map->map_copy[i][++j])
 		{
-			if (map->map_copy[i][j] != 'F' && map->map_copy[i][j] != '0'
-				&& map->map_copy[i][j] != '1' && map->map_copy[i][j] != '\0'
-				&& map->map_copy[i][j] != '\n')
-				return (error_sl(map, 5), 1);
+			if (map->map_copy[i][j] == 'C' || map->map_copy[i][j] == 'E' || 
+				map->map_copy[i][j] == 'P')
+				return (error_sl(map, 5), 0);
 		}
 	}
-	return (free_map(map->map_copy, map->height), map->map_copy = NULL, 0);
+	return (free_map(map->map_copy, map->height), map->map_copy = NULL, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/18 01:04:14 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:17:57 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 void	load_map(t_mlxinfo *mlx)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	tile;
 
-	i = 0;
-	while (i < mlx->map_info->height)
+	i = -1;
+	while (++i < mlx->map_info->height)
 	{
-		j = 0;
-		while (j < mlx->map_info->width)
+		j = -1;
+		while (++j < mlx->map_info->width)
 		{
-			if (mlx->map_info->map_cont[i][j] == '0' || mlx->map_info-> \
-			map_cont[i][j] == 'P' || mlx->map_info->map_cont[i][j] == 'C')
+			tile = mlx->map_info->map_cont[i][j];
+			if (tile == '0' || tile == 'P' || tile == 'C')
 				mlx_image_to_window(mlx->mlx, mlx->empty, j * 64, i * 64);
-			if (mlx->map_info->map_cont[i][j] == 'C')
+			if (tile == 'C')
 				mlx_image_to_window(mlx->mlx, mlx->collectible, j * 64, i * 64);
-			else if (mlx->map_info->map_cont[i][j] == '1')
+			else if (tile == '1')
 				mlx_image_to_window(mlx->mlx, mlx->wall, j * 64, i * 64);
-			else if (mlx->map_info->map_cont[i][j] == 'E')
+			else if (tile == 'E')
 				mlx_image_to_window(mlx->mlx, mlx->exit, j * 64, i * 64);
-			j++;
 		}
-		i++;
 	}
 	mlx_image_to_window(mlx->mlx, mlx->player, mlx->map_info->player_x * 64, \
 		mlx->map_info->player_y * 64);
@@ -95,7 +94,7 @@ int	main(int argc, char **argv)
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	if (parse_map(argv[1], map))
+	if (!parse_map(argv[1], map))
 		return (1);
 	mlx = mlx_initialize(map);
 	load_map(mlx);

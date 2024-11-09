@@ -6,13 +6,13 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 00:58:54 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:19:37 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long_bonus.h"
 
-static void	load_map_bonus(t_mlxinfo *mlx)
+static void	load_map_bonus(t_mlxinfo *mlx, char **map)
 {
 	int		i;
 	int		j;
@@ -24,7 +24,7 @@ static void	load_map_bonus(t_mlxinfo *mlx)
 		j = -1;
 		while (++j < mlx->map_info->width)
 		{
-			tile = mlx->map_info->map_cont[i][j];
+			tile = map[i][j];
 			if (tile == '0' || tile == 'P' || tile == 'C' || tile == 'X')
 				mlx_image_to_window(mlx->mlx, mlx->empty, j * 64, i * 64);
 			if (tile == 'C')
@@ -74,7 +74,7 @@ static t_mlxinfo	*mlx_initialize_bonus(t_map *map)
 		"textures/player_f.png");
 	mlx->enemy = mlx_tex_to_img(mlx->mlx, mlx->enemy, "textures/poison.png");
 	if (!mlx->collectible || !mlx->empty || !mlx->exit || !mlx->player || \
-		!mlx->wall || mlx->enemy)
+		!mlx->wall || !mlx->enemy)
 		return (free_mlx(mlx), NULL);
 	mlx->moves = 0;
 	return (mlx);
@@ -90,10 +90,10 @@ int	main(int argc, char **argv)
 	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (1);
-	if (parse_map_bonus(argv[1], map))
+	if (!parse_map_bonus(argv[1], map))
 		return (1);
 	mlx = mlx_initialize_bonus(map);
-	load_map_bonus(mlx);
+	load_map_bonus(mlx, mlx->map_info->map_cont);
 	mlx->moves = 0;
 	mlx_key_hook(mlx->mlx, &my_keyhook_b, mlx);
 	mlx_loop(mlx->mlx);

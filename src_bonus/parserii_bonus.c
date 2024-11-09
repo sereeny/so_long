@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:47:25 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 00:23:37 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:16:24 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	check_tokens(t_map *map)
 		i++;
 	}
 	if (map->exit != 1 || map->collectibles < 1 || map->player != 1)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 void	update_position(t_map *map, int x, int y)

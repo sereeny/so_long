@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/18 12:48:04 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:38:29 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	print_player(t_mlxinfo *mlx, char m)
 
 static void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 {
+	char *output;
+
 	if (mlx->map_info->map_cont[y][x] == 'C')
 	{
 		mlx->map_info->collectibles--;
@@ -71,6 +73,9 @@ static void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 	mlx->map_info->player_x = x;
 	mlx->map_info->player_y = y;
 	mlx->moves += 1;
+
+	output = 
+	mlx->text = mlx_put_string(mlx->mlx, )
 	ft_printf("Moves: %i\n", mlx->moves);
 }
 
