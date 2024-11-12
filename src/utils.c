@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/08 20:18:42 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:31:32 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	error_print(int type)
 	else if (type == 6)
 		ft_printf("Textures cannot be loaded.\n");
 	else
-		return;
+		return ;
 }
 
 void	free_map(char **map, int height)

@@ -6,11 +6,18 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:47:25 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 11:16:47 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:16:14 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+static void	update_position(t_map *map, int x, int y)
+{
+	map->player++;
+	map->player_x = x;
+	map->player_y = y;
+}
 
 // Checks that there is only one exit, at least one collectible and a starting
 // position for the player, saving it in map->player_x and map->player_y.
@@ -38,13 +45,6 @@ int	check_tokens(t_map *map)
 	if (map->exit != 1 || map->collectibles < 1 || map->player != 1)
 		return (0);
 	return (1);
-}
-
-void	update_position(t_map *map, int x, int y)
-{
-	map->player++;
-	map->player_x = x;
-	map->player_y = y;
 }
 
 void	flood_fill(t_map *map, int x, int y)

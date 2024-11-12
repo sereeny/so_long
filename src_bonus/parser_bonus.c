@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:50:10 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 11:29:31 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:28:38 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	parse_map_bonus(char *file, t_map *map)
 		j = -1;
 		while (map->map_copy[i][++j])
 		{
-			if (map->map_copy[i][j] == 'C' || map->map_copy[i][j] == 'E' || 
+			if (map->map_copy[i][j] == 'C' || map->map_copy[i][j] == 'E' ||
 				map->map_copy[i][j] == 'P')
 				return (error_sl(map, 5), 0);
 		}

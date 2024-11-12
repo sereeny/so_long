@@ -6,7 +6,7 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:15 by ssandova          #+#    #+#             */
-/*   Updated: 2024/10/18 14:59:53 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:22:59 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_mlxinfo
 	int			moves;
 }	t_mlxinfo;
 
-int		main(int argc, char **argv);
+int			main(int argc, char **argv);
 
 //play
 void		my_keyhook(mlx_key_data_t key, void *mlx);
@@ -55,16 +55,14 @@ mlx_image_t	*mlx_tex_to_img(mlx_t *mlx, mlx_image_t *img, char *p);
 
 // parsing
 
-int		parse_map(char *file, t_map *map);
-void	update_position(t_map *map, int x, int y);
-void	flood_fill(t_map *map, int x, int y);
-int		check_tokens(t_map *map);
+int			parse_map(char *file, t_map *map);
+void		flood_fill(t_map *map, int x, int y);
+int			check_tokens(t_map *map);
 
 //utils
 
-void	error_sl(t_map *game, int type);
-void	free_map(char **map, int height);
-void	free_mlx(t_mlxinfo *mlx);
-
+void		error_sl(t_map *game, int type);
+void		free_map(char **map, int height);
+void		free_mlx(t_mlxinfo *mlx);
 
 #endif

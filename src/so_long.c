@@ -6,13 +6,13 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:02:47 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 11:17:57 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:14:44 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	load_map(t_mlxinfo *mlx)
+static void	load_map(t_mlxinfo *mlx)
 {
 	int		i;
 	int		j;

@@ -6,13 +6,13 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:20:04 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/08 20:15:58 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:12:18 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	close_mlx(t_mlxinfo *mlx, int type)
+static void	close_mlx(t_mlxinfo *mlx, int type)
 {
 	mlx_close_window(mlx->mlx);
 	free_mlx(mlx);
@@ -40,7 +40,7 @@ static void	print_player(t_mlxinfo *mlx)
 	mlx_image_to_window(mlx->mlx, mlx->player, x * 64, y * 64);
 }
 
-void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
+static void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 {
 	if (mlx->map_info->map_cont[y][x] == 'C')
 	{
@@ -66,7 +66,7 @@ void	rem_and_new(t_mlxinfo *mlx, char m, int x, int y)
 	ft_printf("Moves: %i\n", mlx->moves);
 }
 
-void	move_player(t_mlxinfo *mlx, int x, int y, char m)
+static void	move_player(t_mlxinfo *mlx, int x, int y, char m)
 {
 	int		new_x;
 	int		new_y;

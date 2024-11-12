@@ -6,11 +6,11 @@
 /*   By: ssandova <ssandova@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:34:59 by ssandova          #+#    #+#             */
-/*   Updated: 2024/11/09 11:28:53 by ssandova         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:28:49 by ssandova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc/so_long_bonus.h"
 
 static void	error_print(int type)
 {
@@ -36,7 +36,7 @@ static void	error_print(int type)
 	else if (type == 6)
 		ft_printf("Textures cannot be loaded.\n");
 	else
-		return;
+		return ;
 }
 
 void	free_map(char **map, int height)
@@ -86,4 +86,5 @@ void	free_mlx(t_mlxinfo *mlx)
 	mlx_delete_image(mlx->mlx, mlx->exit);
 	mlx_delete_image(mlx->mlx, mlx->player);
 	mlx_delete_image(mlx->mlx, mlx->wall);
+	mlx_delete_image(mlx->mlx, mlx->text);
 }
